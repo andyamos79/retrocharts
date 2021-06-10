@@ -6,28 +6,6 @@ import InputForm from '../components/InputForm';
 import 'react-svg-radar-chart/build/css/index.css';
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
-import { stringToColour } from '../utils';
-
-const data = [
-  {
-    data: {
-      people: 0.5,
-      process: 0.5,
-      technology: 0.9,
-      other: 0,
-    },
-    meta: { color: 'blue' }
-  },
-  {
-    data: {
-      people: 0.9,
-      process: 0.3,
-      technology: 0.3,
-      other: 0.25,
-    },
-    meta: { color: 'green' }
-  },
-];
 
 export interface Captions {
   process: string;
