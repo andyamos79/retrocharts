@@ -98,7 +98,10 @@ export default function Home() {
           <RadarChart
             captions={captions}
             data={[radarValues]}
-            size={450}
+            size={650}
+            options={{
+              zoomDistance:1.25
+            }}
           />
         </Row>
       </main>
