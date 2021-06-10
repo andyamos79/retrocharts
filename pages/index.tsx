@@ -38,7 +38,7 @@ export interface RadarValues {
 
 export default function Home() {
 
-  const [radarValues, setRadarValues] = useState({
+  const defaultValues = {
     data: {
       process: 0,
       people: 0,
@@ -49,8 +49,13 @@ export default function Home() {
       color: "",
       userName: "",
     }
-  });
+  };
 
+  const [radarValues, setRadarValues] = useState(defaultValues);
+  const [allUserValues, setAllUserValues] = useState([])
+  const persistValuesForUser = (userValues: RadarValues) => {
+
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -78,7 +83,7 @@ export default function Home() {
             data={[radarValues]}
             size={650}
             options={{
-              zoomDistance:1.25
+              zoomDistance: 1.25,
             }}
           />
         </Row>
