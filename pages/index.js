@@ -10,26 +10,6 @@ import Heading from "../components/Heading";
 
 import { getAllUsersData } from "../clients/backend";
 
-// export interface Captions {
-//   process: string;
-//   people: string;
-//   technology: string;
-//   other: string;
-// }
-
-// export interface RadarValues {
-//   data: {
-//     process?: Number,
-//     people?: Number,
-//     technology?: Number,
-//     other?: Number,
-//   },
-//   meta: {
-//     userName: String,
-//     color: String,
-//   }
-// }
-
 const captions = {
   process: 'Process',
   people: 'People',
