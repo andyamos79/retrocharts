@@ -1,4 +1,7 @@
+const INMEMORY = false;
+
 module.exports = {
+  INMEMORY,
   async rewrites() {
     return [
       {

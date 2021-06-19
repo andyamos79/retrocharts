@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
-import { Captions, RadarValues } from '../pages/index';
-
 import { stringToColour } from '../utils';
 
-interface InputFormProps {
-  categories: Captions;
-  setRadarValues: any;
-  radarValues: RadarValues;
-}
-
-export default function InputForm(props: InputFormProps) {
+export default function InputForm(props) {
   const {
     categories,
     setRadarValues,
@@ -21,7 +13,7 @@ export default function InputForm(props: InputFormProps) {
   const [values, setValues] = useState(radarValues.data);
   const [meta, setMeta] = useState({});
 
-  const onChangeValue = (event: any) => {
+  const onChangeValue = (event) => {
     const controlType = event.target.type;
     const controlId = event.target.id;
     const controlValue = event.target.value;
@@ -39,7 +31,7 @@ export default function InputForm(props: InputFormProps) {
     }
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const tempVals = {
       data: values,
@@ -48,7 +40,7 @@ export default function InputForm(props: InputFormProps) {
     setRadarValues(tempVals);
   }
 
-  const getInputs = (categories: Captions) => {
+  const getInputs = (categories) => {
     return (
       Object.entries(categories).map(([category, val], idx) => {
         return (

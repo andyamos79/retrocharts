@@ -8,7 +8,8 @@ import { Alert, Row } from "react-bootstrap";
 import InputForm from "../components/InputForm";
 import Heading from "../components/Heading";
 
-import { getAllUsersData } from "../clients/backend";
+import { getAllUsersData, postUserData } from "../clients/backend";
+import { defaultValues } from "../data/dataModel";
 
 const captions = {
   process: 'Process',
@@ -18,19 +19,6 @@ const captions = {
 };
 
 export default function Home() {
-  const defaultValues = {
-    data: {
-      process: 0,
-      people: 0,
-      technology: 0,
-      other: 0,
-    },
-    meta: {
-      color: "",
-      userName: "",
-    },
-  };
-
   const [radarValues, setRadarValues] = useState(defaultValues);
   const [allUserValues, setAllUserValues] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -38,24 +26,31 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => await getAllUsersData();
     const result = getData();
-    setAllUserValues(result);
+    console.log(result);
+    if (!result) {
+      setErrorMessage("Unable to get data");
+    } else {
+      setErrorMessage(JSON.stringify(result, null, 2));
+      setAllUserValues(result);
+    }
   }, []);
 
-  useEffect(() => {}, [allUserValues]);
+  useEffect(() => {
+    const postData = async () => postUserData(radarValues);
+    const result = postData();
+    console.log(result);
+    if (!result) {
+      setErrorMessage("Unable to post data");
+    }
+  }, [radarValues]);
 
   return (
     <div className={styles.container}>
       <Heading />
       <main className={styles.main}>
         <h1 className={styles.title}>RetroChart</h1>
+        <Row><Alert style={{background: "red"}}>{errorMessage}</Alert></Row>
         <Row>
-          <Alert>{errorMessage}</Alert>
-        </Row>
-        <Row
-          style={{
-            display: "flex",
-          }}
-        >
           <InputForm
             categories={captions}
             setRadarValues={setRadarValues}

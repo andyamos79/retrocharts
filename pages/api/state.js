@@ -1,7 +1,7 @@
 import Cors from 'cors';
 import initMiddleware from '../../lib/init-middleware';
 
-import { setData, getData } from '../../services/storage';
+import { getUserDetailsByDate, insertUserValues } from '../../services/storage';
 
 const cors = initMiddleware(
   Cors({
@@ -13,23 +13,26 @@ export default async (req, res) => {
   await cors(req, res);
 
   const { body } = req;
-  let userName;
-  let result;
+
+  if (!body) {
+    return res.status(400).json({ message: "no body specified" });
+  }
+  const [firstName, lastName] = req.body.meta.userName.split(" ");
+
   if (req.method === "POST") {
-    userName = body.meta.userName;
-    result = setData(userName, body);
-    if (result instanceof Error) {
-      return res.status(400).json({ message: 'unable to write' });
+    const postResult = insertUserValues({ firstName, lastName: lastName || "", data: body.data });
+    if (postResult instanceof Error) {
+      return res.status(400).json({ message: 'Unable to write data' });
     }
-    return res.status(200).json(getData(userName))
+    console.log(JSON.stringify(postResult));
+    return res.status(200).json({ postResult });
   } 
   else if (req.method === "GET") {
-    userName = req.query.username;
-    result = getData(userName);
+    result = getUserDetailsByDate({ firstName, lastName: lastName || "" }, new Date().toDateString());
     if (result instanceof Error) {
-      return res.status(400).json({ message: 'unable to read' });
+      return res.status(400).json({ message: `Unable to fetch user details: ${result.message}` });
     }
-    return res.status(200).json(result)
+    return res.status(200).json(result);
   }
-  return res.status(405).json({ message: "error" });
+  return res.status(405).json({ message: `Method NOT supported: ${req.method}` });
 }
