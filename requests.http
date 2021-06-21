@@ -1,0 +1,19 @@
+GET http://localhost:3000/api/state
+Content-Type: application/json
+
+{
+    "data": {
+        "process": 0,
+        "people": 0,
+        "technology": 0,
+        "other": 0
+    },
+    "meta": {
+        "color": "",
+        "userName": "dsad dasd"
+    }
+}
+
+###
+
+GET http://localhost:3000/api/state/1

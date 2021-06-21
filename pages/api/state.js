@@ -11,15 +11,14 @@ const cors = initMiddleware(
 
 export default async (req, res) => {
   await cors(req, res);
-
   const { body } = req;
 
-  if (!body) {
-    return res.status(400).json({ message: "no body specified" });
-  }
-  const [firstName, lastName] = req.body.meta.userName.split(" ");
-
   if (req.method === "POST") {
+    if (!body) {
+      return res.status(400).json({ message: "no body specified" });
+    }
+    const [firstName, lastName] = body.meta.userName.split(" ");
+  
     const postResult = insertUserValues({ firstName, lastName: lastName || "", data: body.data });
     if (postResult instanceof Error) {
       return res.status(400).json({ message: 'Unable to write data' });
