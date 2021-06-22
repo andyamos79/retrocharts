@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "better-sqlite3": "^7.4.1",
     "bootstrap": "^4.6.0",
     "cors": "^2.8.5",
     "next": "10.2.3",
