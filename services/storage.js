@@ -15,22 +15,27 @@ export function getUserIdByName(user) {
 }
 
 export function insertUserValues(categoryValues) {
-  console.log(categoryValues);
   const { firstName, lastName, data } = categoryValues;
   const user = {firstName, lastName };
-  return Object.entries(data).map(([key, value]) => {
-    const userId = getUserIdByName(user) || addUserDetails(user);
-    console.log(userId);
-    const query = `
-    INSERT INTO userValues
+  let userId = getUserIdByName(user);
+  if (!userId) {
+    addUserDetails(user);
+    userId = getUserIdByName(user);
+  }
+  
+  if (userId) {
+    return Object.entries(data).map(async ([key, value]) => {
+      const query = `
+      INSERT INTO userValues
       (user_id, date, category, value) 
-    VALUES
+      VALUES
       (?, ?, ?, ?)`;
-
-    const result = insertData(query, [userId, new Date().toDateString(), key, value]);
-    console.log("INSERTUSERVALUES :" + JSON.stringify(result));
-    return result;
-  });
+      
+      return insertData(query, [userId, new Date().toDateString(), key, value]);
+    });
+  } else {
+    console.error("UserID not specified");
+  }
 }
 
 export function addUserDetails(user) {
@@ -40,9 +45,8 @@ export function addUserDetails(user) {
     (first_name, last_name) 
   VALUES
     (?, ?)`;
-
+ 
   const result = insertData(query, [firstName, lastName]);
-  console.log("ADDUSER :" + JSON.stringify(result));
   return result;
 }
 
@@ -58,6 +62,5 @@ export function getUserDetailsByDate(user, date) {
   AND
     date = ?`;
 
-  const result = getData(query, [userId, date.toDateString()]);
-  return result ? result.user_id : undefined ;
+  return getData(query, [userId, date.toDateString()]);
 }
