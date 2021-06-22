@@ -18,12 +18,12 @@ export default async (req, res) => {
       return res.status(400).json({ message: "no body specified" });
     }
     const [firstName, lastName] = body.meta.userName.split(" ");
-  
+
     const postResult = insertUserValues({ firstName, lastName: lastName || "", data: body.data });
     if (postResult instanceof Error) {
       return res.status(400).json({ message: 'Unable to write data' });
     }
-    console.log(JSON.stringify(postResult));
+
     return res.status(200).json({ postResult });
   } 
   else if (req.method === "GET") {

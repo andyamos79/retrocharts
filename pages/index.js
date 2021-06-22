@@ -26,7 +26,6 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => await getAllUsersData();
     const result = getData();
-    console.log(result);
     if (!result) {
       setErrorMessage("Unable to get data");
     } else {
