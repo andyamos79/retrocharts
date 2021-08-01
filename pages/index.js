@@ -25,12 +25,17 @@ export default function Home() {
 
   useEffect(() => {
     const getData = async () => await getAllUsersData();
+    console.log(radarValues)
+    if (!radarValues.meta.userName) return ;
     const result = getData();
     if (!result) {
       setErrorMessage("Unable to get data");
     } else {
+      console.log("******SUCCESS**********")
+      console.log(result);
       setErrorMessage(JSON.stringify(result, null, 2));
       setAllUserValues(result);
+      console.log("****************")
     }
   }, []);
 
@@ -48,7 +53,7 @@ export default function Home() {
       <Heading />
       <main className={styles.main}>
         <h1 className={styles.title}>RetroChart</h1>
-        <Row><Alert style={{background: "red"}}>{errorMessage}</Alert></Row>
+        { errorMessage && ( <Row><Alert style={{background: "red"}}>{errorMessage}</Alert></Row> )}
         <Row>
           <InputForm
             categories={captions}

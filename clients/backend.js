@@ -3,18 +3,18 @@ import { config } from "../config";
 
 const backendClient = axios.create({ baseURL: config.backend.baseUrl });
 
-export async function getAllUsersData() {
-  let result = await backendClient.get("/state");
+export async function getAllUsersData(dateTime) {
+  const datePart = dateTime.substr(0,10);
+  const response = await backendClient.get(`/states?date=${datePart}`);
+  let returnData;
 
-  if (result.status === 200) {
-    console.log(JSON.stringify(result));
-    result = result.data;
+  if (response.status === 200) {
+    returnData = response.data;
   } else {
     console.log("ERROR");
-    console.log(JSON.stringify(result));
-    result = undefined;
+    console.log(JSON.stringify(response));
   }
-  return result;
+  return returnData.data;
 }
 
 export async function postUserData(data) {

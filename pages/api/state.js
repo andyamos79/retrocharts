@@ -11,27 +11,22 @@ const cors = initMiddleware(
 
 export default async (req, res) => {
   await cors(req, res);
-  const { body } = req;
-
+  let result;
   if (req.method === "POST") {
-    if (!body) {
-      return res.status(400).json({ message: "no body specified" });
-    }
-    const [firstName, lastName] = body.meta.userName.split(" ");
+    const { body } = req;
+    if (body) {
+      const [firstName, lastName] = body.meta.userName.split(" ");
+      const postResult = insertUserValues({ firstName, lastName: lastName || "", data: body.data });
 
-    const postResult = insertUserValues({ firstName, lastName: lastName || "", data: body.data });
-    if (postResult instanceof Error) {
-      return res.status(400).json({ message: 'Unable to write data' });
+      if (postResult instanceof Error) {
+        return res.status(400).json({ message: 'Unable to write data' });
+      }
+      
+      return res.status(200).json({ postResult });
     }
-
-    return res.status(200).json({ postResult });
-  } 
-  else if (req.method === "GET") {
-    result = getUserDetailsByDate({ firstName, lastName: lastName || "" }, new Date().toDateString());
-    if (result instanceof Error) {
-      return res.status(400).json({ message: `Unable to fetch user details: ${result.message}` });
-    }
-    return res.status(200).json(result);
+  } else if (req.method === "GET") {
+    const result = getUserDetailsByDate(req.query, new Date())
+    return res.status(200).json({ user: `${req.query.firstName} ${req.query.lastName}`  })
   }
   return res.status(405).json({ message: `Method NOT supported: ${req.method}` });
 }

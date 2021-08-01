@@ -11,27 +11,31 @@ export function getUserIdByName(user) {
       last_name = ?`;
 
   const result = getData(query, [firstName, lastName]);
-  return result ? result.user_id : undefined ;
+  return (result && result.length) ? result[0].user_id : undefined ;
 }
 
 export function insertUserValues(categoryValues) {
   const { firstName, lastName, data } = categoryValues;
   const user = {firstName, lastName };
+
+  console.log(`Adding data for ${_formatUser(user)}`);
   let userId = getUserIdByName(user);
+  console.log(`User: ${userId}`);
+
   if (!userId) {
-    addUserDetails(user);
-    userId = getUserIdByName(user);
+    console.log("User does not exist - adding user");
+    userId = addUserDetails(user);
   }
-  
+
   if (userId) {
-    return Object.entries(data).map(async ([key, value]) => {
-      const query = `
-      INSERT INTO userValues
-      (user_id, date, category, value) 
-      VALUES
-      (?, ?, ?, ?)`;
-      
-      return insertData(query, [userId, new Date().toDateString(), key, value]);
+    const datePart = new Date().toISOString().substr(0, 10);
+    const query = `
+    REPLACE INTO userValues
+    (user_id, date, category, value) 
+    VALUES
+    (?, ?, ?, ?)`;
+    const dataToReturn = Object.entries(data).map(async ([key, value]) => {
+      return insertData(query, [userId, datePart, key, value]);
     });
   } else {
     console.error("UserID not specified");
@@ -39,18 +43,25 @@ export function insertUserValues(categoryValues) {
 }
 
 export function addUserDetails(user) {
+  console.log(`Add user: '${_formatUser(user)}'`);
   const { firstName, lastName } = user;
+  if (!firstName) return;
+
   const query = `
   INSERT INTO users
     (first_name, last_name) 
   VALUES
     (?, ?)`;
  
-  const result = insertData(query, [firstName, lastName]);
-  return result;
+  if (insertData(query, [firstName, lastName])) {
+    return getUserIdByName(user);
+  }
 }
 
+const _formatUser = (user) => `${user.firstName} ${user.lastName}`;
+
 export function getUserDetailsByDate(user, date) {
+  console.log(`Getting data for ${_formatUser(user)} on ${date}`);
   const userId = getUserIdByName(user);
   if (!userId) {
     throw Error(`${ user.firstName } ${ user.lastName } does not exist.`);
@@ -62,5 +73,14 @@ export function getUserDetailsByDate(user, date) {
   AND
     date = ?`;
 
-  return getData(query, [userId, date.toDateString()]);
+  return getData(query, [userId, date]);
+}
+
+export async function getAllUserDetailsByDate(date) {
+  console.log(`Getting data for all users for: ${date}`);
+  const query = `
+  SELECT * FROM userValues 
+  WHERE date = ?`;
+
+  return await getData(query, [date]);
 }

@@ -1,10 +1,12 @@
 const Database = require('better-sqlite3');
+const DEBUG = false;
+const DB_OPTIONS = { verbose: console.log };
 
 let db;
 
 export function _getConnection() {
   if (!db) {
-    db = new Database('data/userData.db', { verbose: console.log });
+    db = new Database('data/userData.db', DEBUG ? DB_OPTIONS : undefined);
   }
   return db;
 }
@@ -30,12 +32,10 @@ export function getData(query, params) {
   const statement = dbConnection.prepare(query);
   let result;
   try {
-    result = statement.get(...params);
+    result = statement.all(...params);
   } catch(err) {
     console.log(err.message);
   }
-  console.log('result ********************');
-  console.dir({result}, {depth: 10});
-  console.log('***********************');
+  // console.log(result);
   return result;
 }
