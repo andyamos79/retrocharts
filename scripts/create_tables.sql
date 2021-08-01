@@ -1,4 +1,9 @@
 
+-- DROP TABLES
+
+-- DROP TABLE userValues;
+-- DROP TABLE users;
+
 -- CREATE TABLE userValues (
 --   id INTEGER PRIMARY KEY,
 --   user_id INTEGER NOT NULL,
@@ -15,7 +20,3 @@
 --    UNIQUE(first_name, last_name)
 -- );
 
--- DROP TABLES
-
--- DROP TABLE userValues;
--- DROP TABLE users;
