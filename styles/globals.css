@@ -1,3 +1,5 @@
+@import 'https://code.highcharts.com/css/highcharts.css';
+
 html,
 body {
   padding: 0;
@@ -13,4 +15,12 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.highcharts-background {
+  fill: #ffffffaa;
+}
+
+.highcharts-boxplot-box {
+  fill: #555555dd;
 }

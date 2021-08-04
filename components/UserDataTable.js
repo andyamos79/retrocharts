@@ -1,5 +1,17 @@
 import { Fragment } from "react";
-import { Table } from 'react-bootstrap';
+import { Table } from "react-bootstrap";
+
+import styled from "styled-components";
+
+const TableDataWrapper = styled.div`
+  z-index: 1;
+  top: 100px;
+  background: #ffffffaa;
+  position: fixed;
+  border-radius: 20px;
+  overflow: scroll;
+  height: 80%;
+`;
 
 const _mapValues = (values) => {
   return values.map((value) => (
@@ -17,16 +29,18 @@ const _mapValues = (values) => {
 export default function DisplayData(props) {
   const { values } = props;
   return (
-    <Table>
-      <tbody>
-        <tr>
-          <th>User Id</th>
-          <th>Date</th>
-          <th>Category</th>
-          <th>Value</th>
-        </tr>
-      </tbody>
-      <Fragment>{_mapValues(values)}</Fragment>
-    </Table>
+    <TableDataWrapper>
+      <Table>
+        <tbody>
+          <tr>
+            <th>User Id</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Value</th>
+          </tr>
+        </tbody>
+        <Fragment>{_mapValues(values)}</Fragment>
+      </Table>
+    </TableDataWrapper>
   );
 }

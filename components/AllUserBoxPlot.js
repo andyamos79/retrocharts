@@ -26,7 +26,10 @@ function getData(values) {
 }
 
 const options = {
-  chart: { type: "boxplot" },
+  chart: { 
+    type: "boxplot",
+    styledMode: true 
+  },
   title: { text: "Retro Chart" },
   legend: { enabled: false },
   xAxis: {
@@ -61,6 +64,18 @@ function genConfig(values) {
 export default function AllUserDataChart(props) {
   const { values } = props;
   return (
-    <HighchartsReact highcharts={Highcharts} options={genConfig(values)} />
+    <HighchartsReact 
+      highcharts={Highcharts} 
+      options={genConfig(values)} 
+      containerProps={{ 
+        style: {
+          zIndex: 1,
+          position: "fixed",
+          borderRadius: "20px",
+          top: "100px",
+          borderWidth: "2px",
+        }  
+      }}
+    />
   );
 }
