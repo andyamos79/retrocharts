@@ -19,6 +19,7 @@ const ChartOuterWrapper = styled.div`
   border-radius: 20px;
   padding: 15px;
   height: 80%;
+  width: 73%;
 `;
 
 function getCategories(values) {

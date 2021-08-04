@@ -20,10 +20,10 @@ export default function allUsers() {
     <Fragment>
       <Container fluid>
         <Row>
-          <Col xs="3">
+          <Col xs="3" lg="3">
             {values && <UserDataTable values={values} />}
           </Col>
-          <Col xs="9">
+          <Col xs="9" lg="9">
             {values && <AllUserDataChart values={values} />}
           </Col>
         </Row>
