@@ -9,6 +9,18 @@ if (typeof Highcharts === "object") {
   HighchartsMore(Highcharts);
 }
 
+import styled from 'styled-components';
+
+const ChartOuterWrapper = styled.div`
+  z-index: 1;
+  top: 100px;
+  background: #ffffffaa;
+  position: fixed;
+  border-radius: 20px;
+  padding: 15px;
+  height: 80%;
+`;
+
 function getCategories(values) {
   const result = Object.fromEntries(
     Object.keys(values[0]).map((key) => [key, values.map((o) => o[key])])
@@ -26,9 +38,9 @@ function getData(values) {
 }
 
 const options = {
-  chart: { 
+  chart: {
     type: "boxplot",
-    styledMode: true 
+    styledMode: true,
   },
   title: { text: "Retro Chart" },
   legend: { enabled: false },
@@ -64,18 +76,19 @@ function genConfig(values) {
 export default function AllUserDataChart(props) {
   const { values } = props;
   return (
-    <HighchartsReact 
-      highcharts={Highcharts} 
-      options={genConfig(values)} 
-      containerProps={{ 
-        style: {
-          zIndex: 1,
-          position: "fixed",
-          borderRadius: "20px",
-          top: "100px",
-          borderWidth: "2px",
-        }  
-      }}
-    />
+    <ChartOuterWrapper>
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={genConfig(values)}
+        containerProps={{
+          style: {
+            zIndex: 1,
+            position: "relative",
+            width: "100%",
+            height: "100%"
+          },
+        }}
+      />
+    </ChartOuterWrapper>
   );
 }

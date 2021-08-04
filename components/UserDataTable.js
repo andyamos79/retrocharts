@@ -3,13 +3,21 @@ import { Table } from "react-bootstrap";
 
 import styled from "styled-components";
 
-const TableDataWrapper = styled.div`
+const TableDataInnerWrapper = styled.div`
+  z-index: 2;
+  position: relative;
+  overflow: scroll;
+  padding: 10px;
+  height: 100%;
+`;
+
+const TableDataOuterWrapper = styled.div`
   z-index: 1;
   top: 100px;
   background: #ffffffaa;
   position: fixed;
   border-radius: 20px;
-  overflow: scroll;
+  padding: 15px;
   height: 80%;
 `;
 
@@ -29,18 +37,20 @@ const _mapValues = (values) => {
 export default function DisplayData(props) {
   const { values } = props;
   return (
-    <TableDataWrapper>
-      <Table>
-        <tbody>
-          <tr>
-            <th>User Id</th>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Value</th>
-          </tr>
-        </tbody>
-        <Fragment>{_mapValues(values)}</Fragment>
-      </Table>
-    </TableDataWrapper>
+    <TableDataOuterWrapper>
+      <TableDataInnerWrapper>
+        <Table>
+          <tbody>
+            <tr>
+              <th>User Id</th>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Value</th>
+            </tr>
+          </tbody>
+          <Fragment>{_mapValues(values)}</Fragment>
+        </Table>
+      </TableDataInnerWrapper>
+    </TableDataOuterWrapper>
   );
 }
