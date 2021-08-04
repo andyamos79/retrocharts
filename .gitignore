@@ -36,3 +36,4 @@ yarn-error.log*
 
 # vsc plugin-related files
 *.sql
+*.db
