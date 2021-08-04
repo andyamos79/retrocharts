@@ -24,3 +24,26 @@ a {
 .highcharts-boxplot-box {
   fill: #555555dd;
 }
+
+.highcharts-boxplot-box, .highcharts-point {
+  stroke-width: 4px;
+  stroke: black;
+}
+
+.highcharts-color-0 {
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.highcharts-root text {
+
+  stroke-width: 0px;
+  font-weight: bolder;
+  font-size: 14px;
+}
+
+.highcharts-title {
+  font-size: 20px !important;
+  font-weight: bolder !important;
+  font-family: cursive !important;
+}
