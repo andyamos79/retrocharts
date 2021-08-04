@@ -1,6 +1,9 @@
 const INMEMORY = false;
 
 module.exports = {
+  images: {
+    domains: ["source.unsplash.com"],
+  },
   INMEMORY,
   async rewrites() {
     return [

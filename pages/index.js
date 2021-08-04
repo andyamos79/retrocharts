@@ -7,9 +7,18 @@ import { Alert, Row } from "react-bootstrap";
 
 import InputForm from "../components/InputForm";
 import Heading from "../components/Heading";
+import BGImage from "../components/BGImage";
 
 import { getAllUsersData, postUserData } from "../clients/backend";
 import { defaultValues } from "../data/dataModel";
+
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 0;
+`;
 
 const captions = {
   process: 'Process',
@@ -51,26 +60,34 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Heading />
-      <main className={styles.main}>
-        <h1 className={styles.title}>RetroChart</h1>
-        { errorMessage && ( <Row><Alert style={{background: "red"}}>{errorMessage}</Alert></Row> )}
-        <Row>
-          <InputForm
-            categories={captions}
-            setRadarValues={setRadarValues}
-            radarValues={radarValues}
-          />
-          {(allUserValues.length > 0) && 
-          <RadarChart
-            captions={captions}
-            data={allUserValues}
-            size={650}
-            options={{
-              zoomDistance: 1.25,
-            }}
-          />}
-        </Row>
-      </main>
+      <Wrapper>
+        <main className={styles.main}>
+          <h1 className={styles.title}>RetroChart</h1>
+          {errorMessage && (
+            <Row>
+              <Alert style={{ background: "red" }}>{errorMessage}</Alert>
+            </Row>
+          )}
+          <Row>
+            <InputForm
+              categories={captions}
+              setRadarValues={setRadarValues}
+              radarValues={radarValues}
+            />
+            {allUserValues.length > 0 && (
+              <RadarChart
+                captions={captions}
+                data={allUserValues}
+                size={650}
+                options={{
+                  zoomDistance: 1.25,
+                }}
+              />
+            )}
+          </Row>
+        </main>
+      </Wrapper>
+      <BGImage />
     </div>
   );
 }

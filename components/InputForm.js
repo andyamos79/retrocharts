@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-
 import { stringToColour } from '../utils';
 
 export default function InputForm(props) {
@@ -69,6 +68,12 @@ export default function InputForm(props) {
   return (
     <Form
       onSubmit={handleSubmit}
+      style={{
+        background: '#FFFFFFAA',
+        "border-radius": "20px",
+        padding: "20px",
+        "z-index": "3"
+      }}
     >
       <Form.Group
         controlId={"name-input"}
