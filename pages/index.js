@@ -5,7 +5,7 @@ import "react-svg-radar-chart/build/css/index.css";
 import React, { useState, useEffect } from "react";
 import { Alert, Row } from "react-bootstrap";
 
-import InputForm from "../components/InputForm";
+import UserInputForm from "../components/UserInputForm";
 import Heading from "../components/Heading";
 import BGImage from "../components/BGImage";
 
@@ -69,7 +69,7 @@ export default function Home() {
             </Row>
           )}
           <Row>
-            <InputForm
+            <UserInputForm
               categories={captions}
               setRadarValues={setRadarValues}
               radarValues={radarValues}

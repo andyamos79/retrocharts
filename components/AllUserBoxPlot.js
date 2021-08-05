@@ -12,14 +12,14 @@ if (typeof Highcharts === "object") {
 import styled from 'styled-components';
 
 const ChartOuterWrapper = styled.div`
-  z-index: 1;
-  top: 100px;
-  background: #ffffffaa;
-  position: fixed;
-  border-radius: 20px;
-  padding: 15px;
-  height: 80%;
-  width: 73%;
+z-index: 1;
+background: #ffffffaa;
+position: absolute;
+border-radius: 20px;
+margin: 5px;
+padding: 15px;
+height: -webkit-fill-available;
+width: 100%;
 `;
 
 function getCategories(values) {
@@ -45,22 +45,12 @@ const options = {
   },
   title: { text: "Retro Chart" },
   legend: { enabled: false },
-  xAxis: {
-    title: {
-      text: "Category",
-    },
-  },
-  yAxis: {
-    title: {
-      text: "value",
-    },
-  },
+  xAxis: { title: { text: "Category" } },
+  yAxis: { title: { text: "Value" } },
   series: [
     {
       name: new Date().toDateString(),
-      tooltip: {
-        headerFormat: "<em>Category {point.key}</em><br/>",
-      },
+      tooltip: { headerFormat: "<em>Category {point.key}</em><br/>" },
     },
   ],
 };
@@ -74,6 +64,15 @@ function genConfig(values) {
   return generatedOptions;
 }
 
+const chartOptions = {
+  style: {
+    zIndex: 1,
+    position: "relative",
+    width: "100%",
+    height: "100%"
+  },
+};
+
 export default function AllUserDataChart(props) {
   const { values } = props;
   return (
@@ -81,14 +80,7 @@ export default function AllUserDataChart(props) {
       <HighchartsReact
         highcharts={Highcharts}
         options={genConfig(values)}
-        containerProps={{
-          style: {
-            zIndex: 1,
-            position: "relative",
-            width: "100%",
-            height: "100%"
-          },
-        }}
+        containerProps={chartOptions}
       />
     </ChartOuterWrapper>
   );

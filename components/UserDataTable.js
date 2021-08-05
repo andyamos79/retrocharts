@@ -4,21 +4,22 @@ import { Table } from "react-bootstrap";
 import styled from "styled-components";
 
 const TableDataInnerWrapper = styled.div`
-  z-index: 2;
-  position: relative;
-  overflow: scroll;
-  padding: 10px;
-  height: 100%;
+z-index: 2;
+position: relative;
+overflow: scroll;
+padding: 10px;
+height: -webkit-fill-available;
 `;
 
 const TableDataOuterWrapper = styled.div`
-  z-index: 1;
-  top: 100px;
-  background: #ffffffaa;
-  position: fixed;
-  border-radius: 20px;
-  padding: 15px;
-  height: 80%;
+z-index: 1;
+background: #ffffffaa;
+position: relative;
+border-radius: 20px;
+padding: 20px;
+margin: 5px;
+width: 95%;
+height: calc(100vh - 100px);
 `;
 
 const _mapValues = (values) => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { stringToColour } from '../utils';
 
-export default function InputForm(props) {
+export default function UserInputForm(props) {
   const {
     categories,
     setRadarValues,
