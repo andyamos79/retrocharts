@@ -37,7 +37,7 @@ export default function allUsers() {
             <Row>{values && <UserDataTable values={values} />}</Row>
           </Col>
           <Col xs={8}>
-            <Row fluid>{values && <AllUserDataChart values={values} />}</Row>
+            <Row>{values && <AllUserDataChart values={values} />}</Row>
           </Col>
         </Row>
       </Container>

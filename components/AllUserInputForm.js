@@ -13,17 +13,17 @@ const FormWrapper = styled.div`
   padding: 20px;
   width: 95%;
   margin: 5px;
-  position: relative;
-  z-index: 2;
+  height: 100px;
+  z-index: 1;
 `;
 
 export default function AllUserInputForm(props) {
   const { dates, setDates } = props;
-  console.log(dates);
   return (
     <FormWrapper>
       <Form.Label>From: </Form.Label>
       <DayPickerInput
+        selectedDays={[new Date()]}
         onDayChange={(day) => setDates({ ...dates, ...{ from: day.toISOString() } })}
       />
       <Form.Label>To: </Form.Label>

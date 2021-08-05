@@ -18,7 +18,7 @@ export default function UserInputForm(props) {
     const controlValue = event.target.value;
     switch (controlType) {
       case "select-one":
-        setValues({ ...values, [controlId]: parseInt(controlValue, 10) / 5 });
+        setValues({ ...values, [controlId]: parseInt(controlValue, 10) });
         break;
       case "text":
         setMeta({ userName: controlValue, color: stringToColour(controlValue) });
